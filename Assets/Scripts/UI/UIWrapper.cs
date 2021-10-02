@@ -10,4 +10,10 @@ public static class UIWrapper
         l.Initialize(name);
         return l;
     }
+    public static InformationUI SpawnInfo(string name){
+        var level = Resources.Load<InformationUI>("Prefabs/UI/Info");
+        var l = Object.Instantiate(level);
+        l.Initialize(name);
+        return l;
+    }
 }

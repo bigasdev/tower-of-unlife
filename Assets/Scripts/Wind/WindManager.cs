@@ -8,6 +8,7 @@ public class WindManager : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] float cameraWindSpeed, playerWindSpeed;
     [SerializeField] float windTimer;
+    [SerializeField] AudioClip towerSound;
     public List<WindSettings> settings;
     public int currentWind = 1;
     float wind;
@@ -22,6 +23,8 @@ public class WindManager : MonoBehaviour
         playerCamera.transform.eulerAngles = new Vector3(0,0,angle);
     }
     void ChangeWind(){
+        CameraFollow.Instance.OnCameraShake(.25f, .45f);
+        AudioController.Instance.PlaySound(towerSound);
         currentWind++;
         if(currentWind >= settings.Count){
             currentWind = 0;

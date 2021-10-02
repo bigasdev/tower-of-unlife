@@ -13,5 +13,14 @@ public class Engine : MonoBehaviour
             return instance;
         }
     }
+    public Player player;
     public Checkpoint currentCheckpoint;
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.R)){
+            player.transform.position = currentCheckpoint.playerSpawnPos.position;
+        }
+    }
+    public void Restart(){
+        player.transform.position = currentCheckpoint.playerSpawnPos.position;
+    }
 }

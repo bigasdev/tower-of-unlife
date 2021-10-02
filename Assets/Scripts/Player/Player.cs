@@ -13,9 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField] LayerMask groundMask;
     [SerializeField] SpriteManager spriteManager;
     [SerializeField] Animator animator;
+    [SerializeField] Transform sprite;
+    [SerializeField] AudioClip jumpSound;
     public bool jumping, onGround, lookingRight;
     float gravity = 0, jump = 0;
     public float jumpButtonHold, onGroundTimer;
+    public Shader teste;
     public Coroutine jumpCoroutine, groundCoroutine;
     private void Start() {
         UIWrapper.SpawnLevelName("Tower of fall");
@@ -89,6 +92,7 @@ public class Player : MonoBehaviour
         if(Input.GetAxisRaw("Horizontal") != 0){
             walkSpeed = 9;
         }
+        AudioController.Instance.PlaySound(jumpSound);
         spriteManager.Squash(.6f, 1f);
         if(jumpCoroutine != null)return;
         jumpCoroutine = StartCoroutine(Jump(1));
@@ -137,7 +141,7 @@ public class Player : MonoBehaviour
         }
         jumpButtonHold = 0f;
         jump = 0;
-        jumpPower = 4;
+        jumpPower = 5;
         walkSpeed = 5;
         jumping = false;
         jumpCoroutine = null;
