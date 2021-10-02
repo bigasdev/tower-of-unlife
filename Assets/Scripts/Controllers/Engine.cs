@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Engine : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private static Engine instance;
+    public static Engine Instance{
+        get{
+            if(instance == null){
+                instance = FindObjectOfType<Engine>();
+            }
+            return instance;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Checkpoint currentCheckpoint;
 }

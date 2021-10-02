@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     float gravity = 0, jump = 0;
     public float jumpButtonHold, onGroundTimer;
     public Coroutine jumpCoroutine, groundCoroutine;
+    private void Start() {
+        UIWrapper.SpawnLevelName("Tower of fall");
+    }
     private void Update() {
         this.transform.localScale = new Vector3(lookingRight ? 1 : -1, 1, 1);
         animator.SetBool("Falling", !onGround);
@@ -93,6 +96,14 @@ public class Player : MonoBehaviour
     public bool LookingForWall(){
         RaycastHit2D hit2D;
         hit2D = Physics2D.Raycast(this.transform.position, Vector2.right * Input.GetAxisRaw("Horizontal"), .65f, groundMask);
+        if(hit2D){
+            return true;
+        }
+        return false;
+    }
+    public bool LookingForWallWithParameters(float parameter){
+        RaycastHit2D hit2D;
+        hit2D = Physics2D.Raycast(this.transform.position, Vector2.right * parameter, .65f, groundMask);
         if(hit2D){
             return true;
         }
