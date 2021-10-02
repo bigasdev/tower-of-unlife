@@ -15,9 +15,16 @@ public class AudioController : MonoBehaviour
     }
     public AudioSource music, sfx;
     public void PlaySound(AudioClip clip){
-        if(sfx.clip == clip){
+        if(sfx.clip == clip || clip == null){
             return;
         }
         sfx.PlayOneShot(clip);
+    }
+    public void PlaySound(string clip){
+        if(string.IsNullOrEmpty(clip)){
+            return;
+        }
+        var c = Resources.Load<AudioClip>("Audio/SFX/" + clip);
+        sfx.PlayOneShot(c);
     }
 }

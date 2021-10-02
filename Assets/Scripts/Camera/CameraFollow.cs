@@ -16,12 +16,15 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] float cameraSpeed;
     [SerializeField] Camera mainCamera;
+    public bool canDie = true;
     Coroutine movement;
     private void Update() {
-        if(Vector2.Distance(this.transform.position, player.transform.position) >= 12f){
+        if(Vector2.Distance(this.transform.position, player.transform.position) >= 12f && canDie){
             Debug.Log("Dead");
+            canDie = false;
+            AudioController.Instance.PlaySound("deathSoundTrue");
             CameraFollow.Instance.OnCameraShake(.25f, 1f);
-            Engine.Instance.Restart();
+            this.gameObject.SpawnParticle("DeathParticle", player.transform, Engine.Instance.Restart);
         }
     }
     public void StartMovement(Vector2 pos){

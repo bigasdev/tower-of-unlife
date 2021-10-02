@@ -22,5 +22,6 @@ public class Engine : MonoBehaviour
     }
     public void Restart(){
         player.transform.position = currentCheckpoint.playerSpawnPos.position;
+        CameraFollow.Instance.canDie = true;
     }
 }

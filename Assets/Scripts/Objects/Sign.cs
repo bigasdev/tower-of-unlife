@@ -13,7 +13,7 @@ public class Sign : MonoBehaviour
         var player = other.GetComponent<Player>();
         if(player == null)return;
         if(informationUI == null){
-            AudioController.Instance.PlaySound(popupSound);
+            //AudioController.Instance.PlaySound(popupSound);
             informationUI = UIWrapper.SpawnInfo(information);
         }
     }
