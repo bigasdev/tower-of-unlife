@@ -7,7 +7,7 @@ public class Checkpoint : MonoBehaviour
     public Transform playerSpawnPos;
     public Transform cameraPos;
     public string levelName;
-    [SerializeField] bool changeCamera, showLevelName, triggered;
+    [SerializeField] bool changeCamera, showLevelName, triggered, majorCheckpoint = false;
     [SerializeField] Animator checkpoint;
     private void OnTriggerEnter2D(Collider2D other) {
         if(triggered)return;
@@ -17,6 +17,7 @@ public class Checkpoint : MonoBehaviour
         triggered = true;
         Engine.Instance.currentCheckpoint = this;
         if(changeCamera)FindObjectOfType<CameraFollow>().StartMovement(cameraPos.position);
+        if(majorCheckpoint)Engine.Instance.majorCheckpoint = this;
         if(showLevelName)UIWrapper.SpawnLevelName(levelName);
     }
 }

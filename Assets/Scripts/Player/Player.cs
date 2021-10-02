@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     private void FixedUpdate() {
         this.transform.position = Vector2.MoveTowards(this.transform.position, LookingForWall() ? new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) : this.transform.position + this.transform.right * Input.GetAxisRaw("Horizontal"), walkSpeed * Time.deltaTime);
         HandleGravity();
+        HandleInsideGround();
     }
     void HandleGravity(){
         if(jumping)return;
@@ -67,7 +68,7 @@ public class Player : MonoBehaviour
         }else{
             gravity = Mathf.MoveTowards(gravity, gravityPower, gravityIncrease * Time.deltaTime);
             this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x, this.transform.position.y - 1), gravity * Time.deltaTime);
-            if(onGroundTimer >= .5f){
+            if(onGroundTimer >= .05f){
                 if(groundCoroutine == null)groundCoroutine = StartCoroutine(ResetJump());
             }else onGround = false;
         }
@@ -82,19 +83,19 @@ public class Player : MonoBehaviour
         StopAllCoroutines();
     }
     IEnumerator ResetJump(){
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitForSeconds(.45f);
         onGroundTimer = 0f;
         onGround = false;
         groundCoroutine = null;
     }
     public void StartJump(){
+        if(jumpCoroutine != null)return;
         jumping = true;
         if(Input.GetAxisRaw("Horizontal") != 0){
             walkSpeed = 9;
         }
         AudioController.Instance.PlaySound(jumpSound);
         spriteManager.Squash(.6f, 1f);
-        if(jumpCoroutine != null)return;
         jumpCoroutine = StartCoroutine(Jump(1));
     }
     public bool LookingForWall(){
@@ -104,6 +105,14 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
+    }
+    void HandleInsideGround(){
+        RaycastHit2D hit2D;
+        hit2D = Physics2D.Raycast(this.transform.position, -this.transform.up, .35f, groundMask);
+        if(hit2D){
+            Debug.Log("Ongroud");
+            this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x, this.transform.position.y + .35f), 50 * Time.deltaTime);
+        }
     }
     public bool LookingForWallWithParameters(float parameter){
         RaycastHit2D hit2D;
@@ -144,6 +153,5 @@ public class Player : MonoBehaviour
         jumpPower = 5;
         walkSpeed = 5;
         jumping = false;
-        jumpCoroutine = null;
     }
 }

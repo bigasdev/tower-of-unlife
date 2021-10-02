@@ -14,14 +14,19 @@ public class Engine : MonoBehaviour
         }
     }
     public Player player;
-    public Checkpoint currentCheckpoint;
+    public Checkpoint currentCheckpoint, majorCheckpoint;
+    public int currentPlayerHealth = 3;
     private void Update() {
         if(Input.GetKeyDown(KeyCode.R)){
-            player.transform.position = currentCheckpoint.playerSpawnPos.position;
+            Death();
         }
     }
     public void Restart(){
         player.transform.position = currentCheckpoint.playerSpawnPos.position;
         CameraFollow.Instance.canDie = true;
+    }
+    public void Death(){
+        currentPlayerHealth = 3;
+        player.transform.position = majorCheckpoint.playerSpawnPos.position;
     }
 }
