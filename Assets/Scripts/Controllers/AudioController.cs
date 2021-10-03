@@ -14,6 +14,10 @@ public class AudioController : MonoBehaviour
         }
     }
     public AudioSource music, sfx;
+    private void Start() {
+        music.volume = PlayerPrefs.GetFloat("MusicVolume") <= 0 ? 1f : PlayerPrefs.GetFloat("MusicVolume");
+        sfx.volume = PlayerPrefs.GetFloat("SoundVolume") <= 0 ? 1f : PlayerPrefs.GetFloat("MusicVolume");
+    }
     public void PlaySound(AudioClip clip){
         if(sfx.clip == clip || clip == null){
             return;

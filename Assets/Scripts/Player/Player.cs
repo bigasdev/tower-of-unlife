@@ -20,17 +20,23 @@ public class Player : MonoBehaviour
     public float jumpButtonHold, onGroundTimer;
     public Shader teste;
     public Coroutine jumpCoroutine, groundCoroutine;
+    public GameObject pauseMenu;
+    public static bool canMove = true;
     private void Start() {
         UIWrapper.SpawnLevelName("Tower of fall");
     }
     private void Update() {
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            pauseMenu.SetActive(true);
+        }
+        if(!canMove)return;
         this.transform.localScale = new Vector3(lookingRight ? 1 : -1, 1, 1);
         animator.SetBool("Falling", !onGround);
         animator.SetBool("Walking", Input.GetAxisRaw("Horizontal") != 0);
-        if(Input.GetKeyDown(KeyCode.A)){
+        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)){
             lookingRight = false;
         }
-        if(Input.GetKeyDown(KeyCode.D)){
+        if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)){
             lookingRight = true;
         }
         if(!onGround)return;
@@ -46,6 +52,7 @@ public class Player : MonoBehaviour
         }
     }
     private void FixedUpdate() {
+        if(!canMove)return;
         this.transform.position = Vector2.MoveTowards(this.transform.position, LookingForWall() ? new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z) : this.transform.position + this.transform.right * Input.GetAxisRaw("Horizontal"), walkSpeed * Time.deltaTime);
         HandleGravity();
         HandleInsideGround();
@@ -90,6 +97,7 @@ public class Player : MonoBehaviour
     }
     public void StartJump(){
         if(jumpCoroutine != null)return;
+        this.gameObject.SpawnParticle("JumpParticle", this.transform, new Vector3(0,-.5f,0));
         jumping = true;
         if(Input.GetAxisRaw("Horizontal") != 0){
             walkSpeed = 9;

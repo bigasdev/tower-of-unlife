@@ -16,6 +16,10 @@ public class ParticleCallback : MonoBehaviour
     }
     public void OnParticleSystemStopped() {
         Debug.Log("Stop");
-        action();
+        if(action != null){
+            action();
+        }else{
+            this.gameObject.SetActive(false);
+        }
     }
 }

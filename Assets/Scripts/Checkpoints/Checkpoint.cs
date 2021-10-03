@@ -7,12 +7,14 @@ public class Checkpoint : MonoBehaviour
     public Transform playerSpawnPos;
     public Transform cameraPos;
     public string levelName;
-    [SerializeField] bool changeCamera, showLevelName, triggered, majorCheckpoint = false;
+    public bool changeCamera, showLevelName, triggered, majorCheckpoint = false;
     [SerializeField] Animator checkpoint;
+    [SerializeField] Transform checkpointPos;
     private void OnTriggerEnter2D(Collider2D other) {
         if(triggered)return;
         var player = other.GetComponent<Player>();
         if(player == null)return;
+        this.gameObject.SpawnParticle("CrystalParticle", checkpointPos, Vector3.zero);
         checkpoint.SetTrigger("Pop");
         triggered = true;
         Engine.Instance.currentCheckpoint = this;

@@ -84,7 +84,9 @@ MonoBehaviour:
   changeCamera: 1
   showLevelName: 0
   triggered: 0
+  majorCheckpoint: 0
   checkpoint: {fileID: 1678419255345308966}
+  checkpointPos: {fileID: 7575502299689855430}
 --- !u!61 &6029099788764032398
 BoxCollider2D:
   m_ObjectHideFlags: 0

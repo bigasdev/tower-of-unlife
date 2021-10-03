@@ -4,15 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] Animator[] healths;
+    public void DoDamage(int health){
+        healths[health].SetTrigger("Damage");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Reset(){
+        foreach(var h in healths){
+            h.SetTrigger("Reset");
+        }
     }
 }

@@ -24,7 +24,7 @@ public class CameraFollow : MonoBehaviour
             canDie = false;
             AudioController.Instance.PlaySound("deathSoundTrue");
             CameraFollow.Instance.OnCameraShake(.25f, 1f);
-            this.gameObject.SpawnParticle("DeathParticle", player.transform, Engine.Instance.Restart);
+            this.gameObject.SpawnParticle("DeathParticle", player.transform, Vector3.zero, Engine.Instance.Restart);
         }
     }
     public void StartMovement(Vector2 pos){
