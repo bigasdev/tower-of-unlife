@@ -97,7 +97,7 @@ public class Player : MonoBehaviour
     }
     public void StartJump(){
         if(jumpCoroutine != null)return;
-        this.gameObject.SpawnParticle("JumpParticle", this.transform, new Vector3(0,-.5f,0));
+        this.gameObject.SpawnParticle(Engine.Instance.particleJumpName, this.transform, new Vector3(0,-.5f,0));
         jumping = true;
         if(Input.GetAxisRaw("Horizontal") != 0){
             walkSpeed = 9;

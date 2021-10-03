@@ -18,6 +18,7 @@ public class Engine : MonoBehaviour
     public Health health;
     public int currentPlayerHealth = 3;
     public bool particlesEnabled, deathEnabled;
+    public string particleJumpName;
     private void Start() {
         if(string.IsNullOrEmpty(PlayerPrefs.GetString("Particles"))){
             PlayerPrefs.SetString("Particles", "Enabled");
