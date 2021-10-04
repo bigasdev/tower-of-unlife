@@ -31,17 +31,26 @@ public class Engine : MonoBehaviour
     }
     private void Update() {
         if(Input.GetKeyDown(KeyCode.R)){
-            Death();
+            Reset();
         }
     }
+    public void Reset(){
+        AudioController.Instance.PlaySound("deathSoundTrue");
+        CameraFollow.Instance.OnCameraShake(.25f, 1f);
+        this.gameObject.SpawnParticle("DeathParticle",  player.transform, Vector3.zero, Death);
+        player.gameObject.SetActive(false);
+    }
     public void Restart(){
+        player.jumping = false;
         player.transform.position = currentCheckpoint.playerSpawnPos.position;
         CameraFollow.Instance.canDie = true;
         DamagePlayer();
     }
     public void Death(){
         currentPlayerHealth = 3;
+        player.jumping = false;
         player.transform.position = majorCheckpoint.playerSpawnPos.position;
+        player.gameObject.SetActive(true);
         CameraFollow.Instance.transform.position = majorCheckpoint.cameraPos.transform.position;
         var checkpoints = FindObjectsOfType<Checkpoint>();
         foreach(var c in checkpoints){

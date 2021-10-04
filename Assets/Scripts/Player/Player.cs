@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
     void HandleGravity(){
         if(jumping)return;
         RaycastHit2D hit2D;
-        hit2D = Physics2D.Raycast(this.transform.position, -this.transform.up, .525f, groundMask);
+        hit2D = Physics2D.Raycast(this.transform.position, -this.transform.up, .585f, groundMask);
         if(hit2D){
             /*var vectorToTarget = this.transform.position - new Vector3(this.transform.position.x, hit2D.distance, this.transform.position.z);
             vectorToTarget.x = 0;
