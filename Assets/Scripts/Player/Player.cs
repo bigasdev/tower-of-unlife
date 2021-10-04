@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
         hit2D = Physics2D.Raycast(this.transform.position, -this.transform.up, .35f, groundMask);
         if(hit2D){
             Debug.Log("Ongroud");
-            this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x, this.transform.position.y + .35f), 50 * Time.deltaTime);
+            this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x, this.transform.position.y + .25f), 50 * Time.deltaTime);
         }
     }
     public bool LookingForWallWithParameters(float parameter){
