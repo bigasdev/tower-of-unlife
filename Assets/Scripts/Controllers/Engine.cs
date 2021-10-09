@@ -43,6 +43,7 @@ public class Engine : MonoBehaviour
     public void Restart(){
         player.jumping = false;
         player.transform.position = currentCheckpoint.playerSpawnPos.position;
+        FindObjectOfType<WindManager>().ChangeWindToDefault();
         CameraFollow.Instance.canDie = true;
         DamagePlayer();
     }

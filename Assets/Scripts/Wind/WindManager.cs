@@ -30,6 +30,10 @@ public class WindManager : MonoBehaviour
             currentWind = 0;
         }
     }
+    public void ChangeWindToDefault(){
+        currentWind = 0;
+        wind = 0;
+    }
 }
 [System.Serializable]
 public class WindSettings{

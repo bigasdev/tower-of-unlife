@@ -39,15 +39,15 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)){
             lookingRight = true;
         }
-        if(!onGround)return;
+        if(onGroundTimer <= .18f && !onGround)return;
         if(Input.GetKey(KeyCode.Space)){
-            /*jumpButtonHold += 3.5f * Time.deltaTime;
-            if(jumpButtonHold >= 1f){
+            jumpButtonHold += 3.5f * Time.deltaTime;
+            if(jumpButtonHold >= .75f){
+                jumpButtonHold = .75f;
                 StartJump();
-                return;
-            }*/
+            }
         }
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyUp(KeyCode.Space)){
             StartJump();
         }
     }
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
         StopAllCoroutines();
     }
     IEnumerator ResetJump(){
-        yield return new WaitForSeconds(.45f);
+        yield return new WaitForSeconds(.25f);
         onGroundTimer = 0f;
         onGround = false;
         groundCoroutine = null;
@@ -133,7 +133,8 @@ public class Player : MonoBehaviour
     IEnumerator Jump(float increase){
         if(increase <= .05f)increase = .05f;
         if(increase >= .65f)increase = .65f;
-        var jumpDistance = this.transform.position + this.transform.up * jumpPower * increase;
+        var jumpDistance = this.transform.position + this.transform.up * jumpPower * jumpButtonHold;
+        jumpButtonHold = 0f;
         var vectorToTarget = this.transform.position - jumpDistance;
         vectorToTarget.x = 0;
         var distance = vectorToTarget.magnitude;

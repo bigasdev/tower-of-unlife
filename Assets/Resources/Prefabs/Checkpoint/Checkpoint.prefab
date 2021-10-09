@@ -87,6 +87,7 @@ MonoBehaviour:
   majorCheckpoint: 0
   checkpoint: {fileID: 1678419255345308966}
   checkpointPos: {fileID: 7575502299689855430}
+  particleJumpName: 
 --- !u!61 &6029099788764032398
 BoxCollider2D:
   m_ObjectHideFlags: 0
